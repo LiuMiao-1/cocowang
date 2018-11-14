@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="banner">
+
+
+</div>
+</body>
+</html>
+<script type="application/javascript">
+    var host='http://localhost:8080';
+$(function () {
+    $(function () {
+        $.ajax({
+            url: host+"/getBanner",
+            type: 'GET',
+            dataType: 'json',
+            timeout: 1000,
+            cache: false,
+            beforeSend: LoadFunction, //加载执行方法
+            error: errorFunction,  //错误执行方法
+            success: succFunction //成功执行方法
+        });
+        function LoadFunction () {
+        }
+        function errorFunction () {
+        }
+        function  succFunction (data) {
+            var json = eval(data); //数组
+            $.each(json, function (index, item) {
+                var bannerHtml = '';
+                //循环获取数据
+                var title = json[index].title;
+                var url = json[index].url;
+                var src = json[index].src;
+                var sort = json[index].sort;
+                bannerHtml = '<img src=' + src + 'title=' + title + '>';
+                $("#banner").append(bannerHtml);
+            });
+        }
+    })
+})
+</script>
